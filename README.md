@@ -2,4 +2,4 @@
 
 ## Build 
 
-`docker build github.com/mrded/rpi-chat`
+`docker build -t rpi-chat github.com/mrded/rpi-chat`
