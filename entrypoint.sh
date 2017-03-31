@@ -3,7 +3,7 @@
 # SIGTERM-handler
 term_handler() {
   echo "Get SIGTERM"
-  iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
+
   /etc/init.d/dnsmasq stop
   /etc/init.d/hostapd stop
   /etc/init.d/dbus stop
@@ -16,12 +16,9 @@ ifconfig wlan0 10.0.0.1/24
 /etc/init.d/hostapd start
 /etc/init.d/dnsmasq start
 
+nodejs server.js &
+
 echo 1 > /proc/sys/net/ipv4/ip_forward
-iptables -t nat -C POSTROUTING -o eth0 -j MASQUERADE
-if [ ! $? -eq 0 ]
-then
-    iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-fi
 
 # setup handlers
 trap term_handler SIGTERM
