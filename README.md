@@ -21,4 +21,6 @@ Why don't we create one? Perhaps it is not a real internet - but something else.
 - [X] WiFi hotspot without encryption
 - [X] [Captive portal](https://en.wikipedia.org/wiki/Captive_portal) with custom web page
 - [ ] Web chat
+  - [Ionic Socket.io Starter](http://market.ionic.io/starters/ionicsocketiostarter)
+  - [Ionic ElastiChat with Images](http://market.ionic.io/plugins/ionic-elastichat-images)
 - [ ] Setup [ngrok](https://ngrok.com/)
