@@ -16,8 +16,6 @@ ifconfig wlan0 10.0.0.1/24
 /etc/init.d/hostapd start
 /etc/init.d/dnsmasq start
 
-nodejs server.js &
-
 echo 1 > /proc/sys/net/ipv4/ip_forward
 
 # setup handlers
