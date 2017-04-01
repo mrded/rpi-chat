@@ -1,28 +1,28 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>RPI-Chat</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <ul class="pages">
-    <li class="chat page">
-      <div class="chatArea">
-        <ul class="messages"></ul>
-      </div>
-      <input class="inputMessage" placeholder="Type here..."/>
-    </li>
-    <li class="login page">
-      <div class="form">
-        <h3 class="title">What's your nickname?</h3>
-        <input class="usernameInput" type="text" maxlength="14" />
-      </div>
-    </li>
-  </ul>
+<html ng-app="starter">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
 
-  <script src="/jquery.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="/main.js"></script>
-</body>
+    <title>RPI - Chat</title>
+
+    <link href="/contrib/ionic.css" rel="stylesheet">
+    <script src="/contrib/ionic.bundle.js"></script> 
+
+    <script src="/main.js"></script> 
+    <link href="/style.css" rel="stylesheet">
+  </head>
+  <body>
+
+    <ion-pane ng-controller="PageCtrl">
+      <ion-content class="padding" start-y="120">
+        <ol class="messages">
+          <li ng-repeat="message in messages" ng-bind-html="message.content"></li>
+        </ol>
+      </ion-content>
+      <ion-footer-bar class="bar-frosted">
+        <button class="button button-clear button-positive" ng-click="add()">Add Message</button>
+      </ion-footer-bar>
+    </ion-pane>
+    
+  </body>
 </html>
