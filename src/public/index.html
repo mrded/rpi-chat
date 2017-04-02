@@ -19,10 +19,13 @@
         <h1 class="title">{{numUsers}} participants</h1>
       </div>
 
-      <ion-content class="padding" start-y="120">
+      <ion-content class="padding">
         <ol class="messages">
-          <li ng-repeat="message in messages">
-            <p ng-if="message.message.type === 'text'" ng-bind-html="message.message.content"></p>
+          <li ng-repeat="message in messages" ng-class="{me: message.username == username}">
+            <small>{{message.username}}</small> 
+            <p ng-if="message.message.type === 'text'">
+              {{message.message.content}} 
+            </p>
           </li>
         </ol>
       </ion-content>

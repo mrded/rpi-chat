@@ -3,6 +3,8 @@ var socket = io();
 
 app.controller('PageCtrl', function($scope, $ionicModal) {
   var loginModal;
+  
+  $scope.username;
   $scope.messages = []; 
   $scope.numUsers = 0;
 
@@ -16,6 +18,7 @@ app.controller('PageCtrl', function($scope, $ionicModal) {
   });
 
   $scope.login = function(username) {
+    $scope.username = username;
     socket.emit('add user', username);
     loginModal.remove();
   };
