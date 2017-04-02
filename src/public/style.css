@@ -20,7 +20,7 @@
   float:right;
 }
 
-.messages p {
+.messages p.message{
   border-radius:.75rem;
   background:#e6e5eb;
   color:#383641;
@@ -29,7 +29,17 @@
   font-size:.875rem;
 }
 
-.messages li.me p {
+.messages li .username {
+  color: rgb(119, 119, 119);
+  padding: 0 10px 0 10px;
+  margin: 0;
+}
+
+.messages li.me .username {
+  text-align: right;
+}
+
+.messages li.me p.message {
   background:#158ffe;
   color:#fff;
 }

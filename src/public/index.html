@@ -22,8 +22,8 @@
       <ion-content class="padding">
         <ol class="messages">
           <li ng-repeat="message in messages" ng-class="{me: message.username == username}">
-            <small>{{message.username}}</small> 
-            <p ng-if="message.message.type === 'text'">
+            <p class='username'>{{message.username}}</p> 
+            <p class="message" ng-if="message.message.type === 'text'">
               {{message.message.content}} 
             </p>
           </li>
