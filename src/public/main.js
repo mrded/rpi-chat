@@ -1,11 +1,24 @@
 var app = angular.module('app', ['ionic']);
 var socket = io();
 
-app.controller('PageCtrl', function($scope) {
+app.controller('PageCtrl', function($scope, $ionicModal) {
+  var loginModal;
   $scope.messages = []; 
   $scope.numUsers = 0;
 
-  socket.emit('add user', 'mrded');
+  $ionicModal.fromTemplateUrl('login.html', {
+    scope: $scope,
+    animation: 'slide-in-up',
+    backdropClickToClose: false
+  }).then(function(modal) {
+    loginModal = modal;
+    loginModal.show();
+  });
+
+  $scope.login = function(username) {
+    socket.emit('add user', username);
+    loginModal.remove();
+  };
 
   socket.on('login', function(data) {
     console.log('Login', data);
@@ -49,7 +62,7 @@ app.controller('PageCtrl', function($scope) {
 
   $scope.add = function(message) {
     var data = {
-      username: 'mrded',
+      username: $scope.username,
       message: {
         type: 'text',
         content: message 
