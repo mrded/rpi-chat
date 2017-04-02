@@ -11,7 +11,9 @@ app.controller('PageCtrl', function($scope, $ionicModal) {
   $ionicModal.fromTemplateUrl('login.html', {
     scope: $scope,
     animation: 'slide-in-up',
-    backdropClickToClose: false
+    focusFirstInput: true,
+    backdropClickToClose: false,
+    hardwareBackButtonClose: false
   }).then(function(modal) {
     loginModal = modal;
     loginModal.show();
