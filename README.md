@@ -15,12 +15,10 @@ Why don't we create one? Perhaps it is not a real internet - but something else.
 
 ### Run
 
-`docker run --privileged --net=host -d rpi-chat`
+`docker run --restart=always --privileged --net=host -d rpi-chat`
 
 ## TODOs
 - [X] WiFi hotspot without encryption
 - [X] [Captive portal](https://en.wikipedia.org/wiki/Captive_portal) with custom web page
-- [ ] Web chat
-  - [Ionic Socket.io Starter](http://market.ionic.io/starters/ionicsocketiostarter)
-  - [Ionic ElastiChat with Images](http://market.ionic.io/plugins/ionic-elastichat-images)
+- [X] Web chat
 - [ ] Setup [ngrok](https://ngrok.com/)
