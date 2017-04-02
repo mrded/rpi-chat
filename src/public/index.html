@@ -1,4 +1,4 @@
-<html ng-app="starter">
+<html ng-app="app">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
@@ -16,18 +16,18 @@
     <ion-pane ng-controller="PageCtrl">
       <ion-content class="padding" start-y="120">
         <ol class="messages">
-          <li ng-repeat="message in messages" ng-bind-html="message.content"></li>
+          <li ng-repeat="message in messages">
+            <p ng-if="message.type === 'text'" ng-bind-html="message.content"></p>
+          </li>
         </ol>
       </ion-content>
 
-      <ion-footer-bar class="bar-stable item-input-inset">
+      <form class="bar bar-footer bar-stable item-input-inset" ng-submit="add(message)">
         <label class="item-input-wrapper">
-          <input type="search" placeholder="New Message">
+          <input type="search" placeholder="New Message" ng-model="message" on-return="add(message)">
         </label>
-        <button class="button button-clear" ng-click="add()">
-          Send
-        </button>
-      </ion-footer-bar>
+        <input type="submit" class="button button-clear" value="Send" />
+      </form>
     </ion-pane>
     
   </body>
