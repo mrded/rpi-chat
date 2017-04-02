@@ -19,8 +19,14 @@
           <li ng-repeat="message in messages" ng-bind-html="message.content"></li>
         </ol>
       </ion-content>
-      <ion-footer-bar class="bar-frosted">
-        <button class="button button-clear button-positive" ng-click="add()">Add Message</button>
+
+      <ion-footer-bar class="bar-stable item-input-inset">
+        <label class="item-input-wrapper">
+          <input type="search" placeholder="New Message">
+        </label>
+        <button class="button button-clear" ng-click="add()">
+          Send
+        </button>
       </ion-footer-bar>
     </ion-pane>
     
