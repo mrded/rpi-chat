@@ -7,9 +7,12 @@
 .messages li {
   display:block;
   clear:both;
-  max-width:50%;
   margin:0 0 1rem 0;
   padding:0;
+}
+
+.messages li.log {
+  text-align: center;
 }
 
 .messages li.me {
