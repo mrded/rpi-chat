@@ -1,25 +1,32 @@
 var app = angular.module('app', ['ionic']);
 var socket = io();
 
-app.controller('PageCtrl', function($scope, $ionicModal) {
+app.controller('PageCtrl', function($scope, $ionicModal, $window) {
   var loginModal;
   
-  $scope.username;
+  $scope.username = $window.localStorage['username'];
   $scope.messages = []; 
   $scope.numUsers = 0;
 
-  $ionicModal.fromTemplateUrl('login.html', {
-    scope: $scope,
-    animation: 'slide-in-up',
-    focusFirstInput: true,
-    backdropClickToClose: false,
-    hardwareBackButtonClose: false
-  }).then(function(modal) {
-    loginModal = modal;
-    loginModal.show();
-  });
+  if (!$scope.username) {
+    //@TODO: Move pop-up into component.
+    $ionicModal.fromTemplateUrl('login.html', {
+      scope: $scope,
+      animation: 'slide-in-up',
+      focusFirstInput: true,
+      backdropClickToClose: false,
+      hardwareBackButtonClose: false
+    }).then(function(modal) {
+      loginModal = modal;
+      loginModal.show();
+    });
+  }
+  
 
   $scope.login = function(username) {
+    //@TODO: Move working with storage into a service.
+    $window.localStorage['username'] = username;
+
     $scope.username = username;
     socket.emit('add user', username);
     loginModal.remove();
