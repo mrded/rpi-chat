@@ -1,4 +1,7 @@
 // Setup basic express server
+var MongoClient = require('mongodb').MongoClient;
+var url = 'mongodb://localhost:27017/rpi-chat';
+
 var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
@@ -27,6 +30,13 @@ io.on('connection', function(socket) {
     // we tell the client to execute 'new message'
     message.username = socket.username;
     socket.broadcast.emit('new message', message);
+
+    // Save message into database.
+    MongoClient.connect(url, function(err, db) {
+      db.collection('documents').insertOne(message, function(err, r) {
+        db.close();
+      });
+    });
   });
 
   // when the client emits 'add user', this listens and executes
