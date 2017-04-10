@@ -22,4 +22,4 @@ Why don't we create one? Perhaps it is not a real internet - but something else.
 - [X] [Captive portal](https://en.wikipedia.org/wiki/Captive_portal) with custom web page
 - [X] Web chat
 - [ ] Possibility to send images
-- [ ] Setup [ngrok](https://ngrok.com/)
+- [ ] Add database to save chat history
