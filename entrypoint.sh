@@ -7,6 +7,7 @@ term_handler() {
   /etc/init.d/dnsmasq stop
   /etc/init.d/hostapd stop
   /etc/init.d/dbus stop
+  /etc/init.d/mongodb stop
   kill -TERM "$child" 2> /dev/null
 }
 
@@ -15,6 +16,7 @@ ifconfig wlan0 10.0.0.1/24
 /etc/init.d/dbus start
 /etc/init.d/hostapd start
 /etc/init.d/dnsmasq start
+/etc/init.d/mongodb start
 
 npm start&
 
