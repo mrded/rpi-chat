@@ -8,6 +8,15 @@ app.controller('PageCtrl', function($scope, $ionicModal, $window) {
   $scope.messages = []; 
   $scope.numUsers = 0;
 
+  var _log = function(text) {
+    $scope.messages.push({
+      type: 'log',
+      content: text
+    });
+
+    $scope.$apply();
+  };
+
   if ($scope.username) {
     socket.emit('add user', $scope.username);
   }
@@ -38,16 +47,23 @@ app.controller('PageCtrl', function($scope, $ionicModal, $window) {
   socket.on('login', function(data) {
     console.log('Login', data);
     $scope.numUsers = data.numUsers;
+
+    _log("Welcome! :count participants"
+      .replace(':count', data.numUsers))
   });
 
   socket.on('user joined', function(data) {
     console.log('User joined', data);
     $scope.numUsers = data.numUsers;
+
+    _log("User :user joined".replace(':user', data.username))
   });
 
   socket.on('user left', function(data) {
     console.log('User left', data);
     $scope.numUsers = data.numUsers;
+
+    _log("User :user left".replace(':user', data.username))
   });
 
   socket.on('typing', function(data) {

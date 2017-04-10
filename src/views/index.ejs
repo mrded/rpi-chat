@@ -17,12 +17,16 @@
     <ion-pane ng-controller="PageCtrl">
       <ion-content class="padding">
         <ol class="messages">
-          <li class="log">{{numUsers}} participant(s)</li>
-          <li ng-repeat="message in messages" ng-class="{me: message.username == username}">
-            <p class='username'>{{message.username}}</p> 
-            <p class="message" ng-if="message.type === 'text'">
-              {{message.content}} 
-            </p>
+          <li ng-repeat="message in messages">
+            <div ng-if="message.type == 'log'" class="log">{{message.content}}</div>
+
+            <div ng-if="message.type == 'text'" ng-class="{me: message.username == username, somebody: message.username != username}" class="text">
+              <p class='username'>{{message.username}}</p> 
+              <p class="message" ng-if="message.type === 'text'">
+                {{message.content}} 
+              </p>
+            </div>
+            
           </li>
         </ol>
       </ion-content>

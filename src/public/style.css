@@ -11,17 +11,13 @@
   padding:0;
 }
 
-.messages li.log {
-  text-align: center;
-}
+.messages li .log { text-align: center; }
 
-.messages li.me {
-  float:right;
-}
+.messages li .somebody { float:left; }
+.messages li .me { float:right; }
 
-.messages li.me img {
-  float:right;
-}
+.messages li .somebody img { float:left; }
+.messages li .me img { float:right; }
 
 .messages p.message{
   border-radius:.75rem;
@@ -38,11 +34,11 @@
   margin: 0;
 }
 
-.messages li.me .username {
+.messages li .me .username {
   text-align: right;
 }
 
-.messages li.me p.message {
+.messages li .me p.message {
   background:#158ffe;
   color:#fff;
 }
