@@ -6,6 +6,7 @@
   "author": "Dmitry Demenchuk @mrded (dmitry@demenchuk.me)",
   "license": "MIT",
   "dependencies": {
+    "ejs": "^2.5.6",
     "express": "4.13.4",
     "socket.io": "^1.7.3"
   },

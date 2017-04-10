@@ -9,8 +9,12 @@ server.listen(port, function() {
   console.log('Server listening at port %d', port);
 });
 
-// Routing
+app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
+
+app.get('*', function(req, res) {
+  res.render('index');
+});
 
 // Chatroom
 var numUsers = 0;
