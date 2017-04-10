@@ -1,11 +1,10 @@
 {
-  "name": "socket.io-chat",
+  "name": "rpi-chat",
   "version": "0.0.0",
   "description": "A simple chat client using socket.io",
   "main": "index.js",
-  "author": "Grant Timmerman",
-  "private": true,
-  "license": "BSD",
+  "author": "Dmitry Demenchuk @mrded (dmitry@demenchuk.me)",
+  "license": "MIT",
   "dependencies": {
     "express": "4.13.4",
     "socket.io": "^1.7.3"
