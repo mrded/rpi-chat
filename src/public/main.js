@@ -63,6 +63,7 @@ app.controller('PageCtrl', function($scope, $ionicModal) {
   socket.on('new message', function(data) {
     console.log('new message', data);
     $scope.messages.push(data);
+    $scope.$apply();
   });
 
   $scope.add = function(message) {
