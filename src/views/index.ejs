@@ -20,8 +20,8 @@
           <li class="log">{{numUsers}} participant(s)</li>
           <li ng-repeat="message in messages" ng-class="{me: message.username == username}">
             <p class='username'>{{message.username}}</p> 
-            <p class="message" ng-if="message.message.type === 'text'">
-              {{message.message.content}} 
+            <p class="message" ng-if="message.type === 'text'">
+              {{message.content}} 
             </p>
           </li>
         </ol>

@@ -8,7 +8,10 @@ app.controller('PageCtrl', function($scope, $ionicModal, $window) {
   $scope.messages = []; 
   $scope.numUsers = 0;
 
-  if (!$scope.username) {
+  if ($scope.username) {
+    socket.emit('add user', $scope.username);
+  }
+  else {
     //@TODO: Move pop-up into component.
     $ionicModal.fromTemplateUrl('login.html', {
       scope: $scope,
@@ -22,7 +25,7 @@ app.controller('PageCtrl', function($scope, $ionicModal, $window) {
     });
   }
   
-
+  //@TODO: Move into pop-up's controller.
   $scope.login = function(username) {
     //@TODO: Move working with storage into a service.
     $window.localStorage['username'] = username;
@@ -68,23 +71,21 @@ app.controller('PageCtrl', function($scope, $ionicModal, $window) {
   });
 
   socket.on('new message', function(data) {
-    console.log('new message', data);
-    $scope.messages.push(data);
+    console.log('new message', data.message);
+    $scope.messages.push(data.message);
     $scope.$apply();
   });
 
-  $scope.add = function(message) {
-    var data = {
+  $scope.add = function(content) {
+    var message = {
       username: $scope.username,
-      message: {
-        type: 'text',
-        content: message 
-      }
+      type: 'text',
+      content: content 
     };
 
-    $scope.messages.push(data);
+    $scope.messages.push(message);
 
-    socket.emit('new message', data.message);
+    socket.emit('new message', message);
 
     $scope.message = '';
   };
