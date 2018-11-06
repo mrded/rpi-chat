@@ -19,7 +19,7 @@ ADD dnsmasq.conf /etc/dnsmasq.conf
 
 # Copy web-server
 COPY src /src
-RUN cd /src; npm install; npm run build
+RUN cd /src; npm install
 
 WORKDIR /src
 

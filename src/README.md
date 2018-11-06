@@ -4,7 +4,7 @@
 
 ## Run backend 
 
-    npm run backend 
+    npm start 
 
 ## Run frontend 
 
