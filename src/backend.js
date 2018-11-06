@@ -3,6 +3,8 @@ const Socket = require('socket.io');
 
 const app = Express();
 
+app.use(Express.static(__dirname + '/build'));
+
 const server = app.listen(5000, () => {
   console.log('server is running on port 5000')
 });
