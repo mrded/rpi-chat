@@ -1,8 +1,9 @@
 import React from "react";
 import io from "socket.io-client";
 
-import 'react-chat-elements/dist/main.css';
-import { MessageBox, Input, Button } from 'react-chat-elements';
+import { Input, Button } from 'react-chat-elements';
+
+import Message from './Message';
 
 class Chat extends React.Component {
   constructor(props) {
@@ -38,19 +39,15 @@ class Chat extends React.Component {
   render(){
     return (
       <div>
-        {this.state.messages.map((message, id) => {
-          console.log(message);
-
+        { this.state.messages.map((message, id) => {
           return (
-            <MessageBox
+            <Message
               key={ id }
-              position={ 'left' }
-              type={ 'text' }
-              date={ new Date(message.date) }
-              text={ message.message }
+              date={ message.date }
+              message={ message.message }
             />
           )
-        })}
+        }) }
 
         <Input
           placeholder="Type here..."
