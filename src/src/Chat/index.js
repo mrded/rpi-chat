@@ -1,16 +1,14 @@
 import React from "react";
 import io from "socket.io-client";
 
-import { Input, Button } from 'react-chat-elements';
-
 import Message from './Message';
+import Input from './Input';
 
 class Chat extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      message: '',
       messages: []
     };
 
@@ -25,18 +23,7 @@ class Chat extends React.Component {
     });
   };
 
-  sendMessage(ev) {
-    ev.preventDefault();
-
-    this.socket.emit('SEND_MESSAGE', {
-      date: new Date(),
-      message: this.state.message
-    })
-
-    this.setState({ message: '' });
-  }
-
-  render(){
+  render() {
     return (
       <div>
         { this.state.messages.map((message, id) => {
@@ -49,19 +36,7 @@ class Chat extends React.Component {
           )
         }) }
 
-        <Input
-          placeholder="Type here..."
-          value={ this.state.message } 
-          onChange={ev => this.setState({ message: ev.target.value })}
-          multiline={ true }
-          rightButtons={
-            <Button
-              color='white'
-              backgroundColor='black'
-              text='Send'
-              onClick={ this.sendMessage.bind(this) }
-            />
-          }/>
+        <Input socket={ this.socket } />
       </div>
     );
   }
