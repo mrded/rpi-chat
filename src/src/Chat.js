@@ -1,12 +1,14 @@
 import React from "react";
 import io from "socket.io-client";
 
+import 'react-chat-elements/dist/main.css';
+import { MessageBox, Input, Button } from 'react-chat-elements';
+
 class Chat extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      username: '',
       message: '',
       messages: []
     };
@@ -26,7 +28,7 @@ class Chat extends React.Component {
     ev.preventDefault();
 
     this.socket.emit('SEND_MESSAGE', {
-      author: this.state.username,
+      date: new Date(),
       message: this.state.message
     })
 
@@ -37,28 +39,32 @@ class Chat extends React.Component {
     return (
       <div>
         {this.state.messages.map((message, id) => {
+          console.log(message);
+
           return (
-            <div key={ id }>{ message.author }: { message.message }</div>
+            <MessageBox
+              key={ id }
+              position={ 'left' }
+              type={ 'text' }
+              date={ new Date(message.date) }
+              text={ message.message }
+            />
           )
         })}
 
-        <div>
-          <input type="text" placeholder="Username" 
-            value={this.state.username} 
-            onChange={ev => this.setState({ username: ev.target.value })} 
-          />
-
-          <br/>
-
-          <input type="text" placeholder="Message" 
-            value={ this.state.message } 
-            onChange={ev => this.setState({ message: ev.target.value })}
-          />
-
-          <br/>
-
-          <button onClick={ this.sendMessage.bind(this) }>Send</button>
-        </div>
+        <Input
+          placeholder="Type here..."
+          value={ this.state.message } 
+          onChange={ev => this.setState({ message: ev.target.value })}
+          multiline={ true }
+          rightButtons={
+            <Button
+              color='white'
+              backgroundColor='black'
+              text='Send'
+              onClick={ this.sendMessage.bind(this) }
+            />
+          }/>
       </div>
     );
   }
