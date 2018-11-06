@@ -25,4 +25,8 @@ WORKDIR /src
 
 ADD entrypoint.sh /entrypoint.sh
 
+ENV PORT 80
+
 ENTRYPOINT ["/entrypoint.sh"]
+
+EXPOSE 80
