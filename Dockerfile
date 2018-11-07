@@ -5,6 +5,10 @@ MAINTAINER Dmitry Demenchuk "dmitry@demenchuk.me"
 RUN apt-get update --fix-missing
 RUN apt-get install -y hostapd dbus net-tools dnsmasq curl
 
+# Install mongodb
+#@TODO: Move mongo into separate container.
+RUN apt-get install -y mongodb
+
 # Install nodejs
 #@TODO: Move nodejs into separate container.
 RUN curl -L https://deb.nodesource.com/setup_6.x | bash
