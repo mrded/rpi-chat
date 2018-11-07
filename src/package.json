@@ -20,7 +20,7 @@
     "start": "nodemon backend.js",
     "frontend": "react-scripts start",
     "test": "react-scripts test --env=jsdom",
-    "postinstall": "react-scripts build"
+    "build": "react-scripts build"
   },
   "browserslist": [
     ">0.2%",

@@ -19,11 +19,12 @@ ADD dnsmasq.conf /etc/dnsmasq.conf
 
 # Copy web-server
 COPY src /src
-# Build client from development env, then install minimum packages to run the server.
-RUN cd /src \
-  ; NODE_ENV=development npm i --unsafe-perm \
-  ; rm -rf node_modules \
-  ; NODE_ENV=production npm i --ignore-scripts
+
+# Build client from development env, and clean up.
+RUN cd /src; NODE_ENV=development npm i; npm run build; rm -rf node_modules
+
+# Install dependencies for production.
+RUN cd /src; NODE_ENV=production npm i
 
 WORKDIR /src
 
@@ -32,5 +33,3 @@ ADD entrypoint.sh /entrypoint.sh
 ENV PORT 80
 
 ENTRYPOINT ["/entrypoint.sh"]
-
-EXPOSE 80
