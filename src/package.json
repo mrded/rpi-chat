@@ -5,10 +5,10 @@
   "main": "backend.js",
   "dependencies": {
     "express": "^4.16.4",
+    "nodemon": "^1.18.6",
     "socket.io": "^2.1.1"
   },
   "devDependencies": {
-    "nodemon": "^1.18.6",
     "prop-types": "^15.6.2",
     "react": "^16.6.0",
     "react-chat-elements": "^10.1.1",
