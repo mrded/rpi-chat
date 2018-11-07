@@ -20,7 +20,7 @@ ADD dnsmasq.conf /etc/dnsmasq.conf
 # Copy web-server
 COPY src /src
 # Build client from development env, then install minimum packages to run the server.
-RUN cd /src; NODE_ENV=development npm i; rm -rf node_modules; NODE_ENV=production npm i --ignore-scripts
+RUN cd /src; NODE_ENV=development npm i --unsafe-perm; rm -rf node_modules; NODE_ENV=production npm i --ignore-scripts
 
 WORKDIR /src
 
