@@ -5,16 +5,16 @@
   "main": "backend.js",
   "dependencies": {
     "express": "^4.16.2",
-    "prop-types": "^15.6.2",
-    "react": "^16.0.0",
-    "react-chat-elements": "^10.1.1",
-    "react-dom": "^16.0.0",
-    "socket.io": "^2.0.4",
-    "socket.io-client": "^2.0.4"
+    "socket.io": "^2.0.4"
   },
   "devDependencies": {
     "nodemon": "^1.18.6",
-    "react-scripts": "1.0.15"
+    "prop-types": "^15.6.2",
+    "react": "^16.0.0",
+    "react-scripts": "1.0.15",
+    "react-chat-elements": "^10.1.1",
+    "react-dom": "^16.0.0",
+    "socket.io-client": "^2.0.4"
   },
   "scripts": {
     "start": "nodemon backend.js",
