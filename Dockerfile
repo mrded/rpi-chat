@@ -5,9 +5,9 @@ MAINTAINER Dmitry Demenchuk "dmitry@demenchuk.me"
 RUN apt-get update --fix-missing
 RUN apt-get install -y hostapd dbus net-tools dnsmasq curl
 
-# Install mongodb
-#@TODO: Move mongo into separate container.
-RUN apt-get install -y mongodb
+# Install couchdb 
+#@TODO: Move couchdb into separate container.
+RUN apt-get install -y couchdb 
 
 # Install nodejs
 #@TODO: Move nodejs into separate container.
