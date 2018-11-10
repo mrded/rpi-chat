@@ -16,6 +16,7 @@ ADD dnsmasq.conf /etc/dnsmasq.conf
 
 # Install CouchDB and enable CORS 
 RUN apt-get install -y couchdb; \
+      /etc/init.d/couchdb start; \
       npm install -g add-cors-to-couchdb; \
       add-cors-to-couchdb 
 
