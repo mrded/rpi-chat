@@ -4,6 +4,8 @@ import io from "socket.io-client";
 import Message from './Message';
 import Input from './Input';
 
+import PouchDB from 'pouchdb';
+
 class Chat extends React.Component {
   constructor(props) {
     super(props);
@@ -13,8 +15,24 @@ class Chat extends React.Component {
     };
 
     this.socket = io();
+    this.db = new PouchDB('http://localhost:5984/rpi-chat');
 
     this.socket.on('RECEIVE_MESSAGE', (data) => this.addMessage(data));
+  }
+
+  async componentDidMount() {
+    const messages = this.state.messages.slice(0);
+
+    const result = await this.db.allDocs({
+      include_docs: true,
+      attachments: true
+    });
+
+    for (let row of result.rows) {
+      messages.push(row.doc);
+    }
+
+    this.setState({ messages });
   }
 
   addMessage(data) {
