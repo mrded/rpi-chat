@@ -13,7 +13,9 @@ class Chat extends React.Component {
       messages: []
     };
 
-    this.db = new PouchDB('http://localhost:5984/rpi-chat');
+    const couch_host = process.env.REACT_APP_COUCH_HOST || 'http://localhost:5984';
+
+    this.db = new PouchDB(couch_host + '/rpi-chat');
 
     this.db.changes({ since: 'now', live: true, include_docs: true })
       .on('change', change => this.addMessage(change.doc))

@@ -41,5 +41,6 @@ WORKDIR /src
 ADD entrypoint.sh /entrypoint.sh
 
 ENV PORT 80
+ENV REACT_APP_COUCH_HOST 'http://10.0.0.1:5984'
 
 ENTRYPOINT ["/entrypoint.sh"]
