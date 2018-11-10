@@ -2,17 +2,14 @@ import React from "react";
 
 import PropTypes from 'prop-types';
 
-import { MessageBox } from 'react-chat-elements';
-
 class Message extends React.Component {
   render() {
     return (
-      <MessageBox
-        position={ 'left' }
-        type={ 'text' }
-        date={ new Date(this.props.date) }
-        text={ this.props.message }
-      />
+      <div className="card bg-light mb-3">
+        <div className="card-body">
+          { this.props.text }
+        </div>
+      </div>
     );
   }
 }

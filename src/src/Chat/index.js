@@ -43,18 +43,22 @@ class Chat extends React.Component {
 
   render() {
     return (
-      <div>
-        { this.state.messages.map((message, id) => {
-          return (
-            <Message
-              key={ id }
-              date={ message.date }
-              message={ message.message }
-            />
-          )
-        }) }
+      <div className="card">
+        <div className="card-body">
+          { this.state.messages.map((message, id) => {
+            return (
+              <Message
+                key={ id }
+                date={ message.date }
+                text={ message.text }
+              />
+            )
+          }) }
+        </div>
 
-        <Input socket={ this.socket } db={ this.db } />
+        <div className="card-footer text-muted">
+          <Input socket={ this.socket } db={ this.db } />
+        </div>
       </div>
     );
   }

@@ -9,7 +9,7 @@ class Input extends React.Component {
 
     const data = {
       date: new Date(),
-      message: ReactDOM.findDOMNode(this.refs.msg).value
+      text: ReactDOM.findDOMNode(this.refs.msg).value
     };
 
     this.props.db.post(data);
@@ -19,21 +19,14 @@ class Input extends React.Component {
   }
 
   render() {
-    const style = {
-      position: 'absolute',
-      bottom: 0
-    };
-
     return (
-      <div className="container" style={ style }>
-        <form className="input-group" onSubmit={ e => this.submitMessage(e) }>
-          <input type="text" className="form-control" placeholder="Message" ref="msg"/>
+      <form className="input-group" onSubmit={ e => this.submitMessage(e) }>
+        <input type="text" className="form-control" placeholder="Message" ref="msg"/>
 
-          <div className="input-group-append">
-            <input type="submit" className="btn btn-outline-secondary" value="Send"/>
-          </div>
-        </form> 
-      </div>
+        <div className="input-group-append">
+          <input type="submit" className="btn btn-outline-secondary" value="Send"/>
+        </div>
+      </form> 
     );
   }
 }
