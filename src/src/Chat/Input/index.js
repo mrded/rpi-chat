@@ -1,45 +1,27 @@
 import React from "react";
+import ReactDOM from 'react-dom';
 
 import PropTypes from 'prop-types';
 
-import { Input as ChatInput, Button } from 'react-chat-elements';
-
 class Input extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      message: '',
-    };
-  }
-
-  sendMessage(ev) {
-    ev.preventDefault();
+  submitMessage(e) {
+    e.preventDefault();
 
     this.props.socket.emit('SEND_MESSAGE', {
       date: new Date(),
-      message: this.state.message
-    })
+      message: ReactDOM.findDOMNode(this.refs.msg).value
+    });
 
-    this.setState({ message: '' });
+    ReactDOM.findDOMNode(this.refs.msg).value = "";
   }
 
   render() {
     return (
-      <ChatInput
-        placeholder="Type here..."
-        value={ this.state.message } 
-        onChange={ev => this.setState({ message: ev.target.value })}
-        multiline={ true }
-        rightButtons={
-          <Button
-            color='white'
-            backgroundColor='black'
-            text='Send'
-            onClick={ this.sendMessage.bind(this) }
-          />
-        }/>
-    )
+      <form className="input" onSubmit={ e => this.submitMessage(e) }>
+        <input type="text" ref="msg" />
+        <input type="submit" value="Submit" />
+      </form>
+    );
   }
 }
 
