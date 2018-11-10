@@ -7,10 +7,13 @@ class Input extends React.Component {
   submitMessage(e) {
     e.preventDefault();
 
-    this.props.socket.emit('SEND_MESSAGE', {
+    const data = {
       date: new Date(),
       message: ReactDOM.findDOMNode(this.refs.msg).value
-    });
+    };
+
+    this.props.db.post(data);
+    this.props.socket.emit('SEND_MESSAGE', data);
 
     ReactDOM.findDOMNode(this.refs.msg).value = "";
   }

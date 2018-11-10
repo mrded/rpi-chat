@@ -1,8 +1,5 @@
 const Express = require('express');
 const Socket = require('socket.io');
-const PouchDB = require('pouchdb');
-
-const db = new PouchDB('http://localhost:5984/rpi-chat');
 
 const app = Express();
 const port = process.env.PORT || 5000;
@@ -24,8 +21,5 @@ io.on('connection', (socket) => {
 
   socket.on('SEND_MESSAGE', (data) => {
     io.emit('RECEIVE_MESSAGE', data);
-
-    // Save message into database.
-    db.post(data);
   })
 });

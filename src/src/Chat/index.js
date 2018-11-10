@@ -4,7 +4,7 @@ import io from "socket.io-client";
 import Message from './Message';
 import Input from './Input';
 
-import PouchDB from 'pouchdb';
+import PouchDB from 'pouchdb-browser';
 
 class Chat extends React.Component {
   constructor(props) {
@@ -54,7 +54,7 @@ class Chat extends React.Component {
           )
         }) }
 
-        <Input socket={ this.socket } />
+        <Input socket={ this.socket } db={ this.db } />
       </div>
     );
   }
