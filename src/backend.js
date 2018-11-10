@@ -26,6 +26,6 @@ io.on('connection', (socket) => {
     io.emit('RECEIVE_MESSAGE', data);
 
     // Save message into database.
-		db.post(data);
+    db.post(data);
   })
 });
