@@ -7,13 +7,10 @@ class Input extends React.Component {
   submitMessage(e) {
     e.preventDefault();
 
-    const data = {
+    this.props.db.post({
       date: new Date(),
       text: ReactDOM.findDOMNode(this.refs.msg).value
-    };
-
-    this.props.db.post(data);
-    this.props.socket.emit('SEND_MESSAGE', data);
+    });
 
     ReactDOM.findDOMNode(this.refs.msg).value = "";
   }
@@ -32,8 +29,8 @@ class Input extends React.Component {
 }
 
 Input.propTypes = {
-  socket: PropTypes.shape({
-    emit: PropTypes.func.isRequired,
+  db: PropTypes.shape({
+    post: PropTypes.func.isRequired,
   }).isRequired,
 }
 

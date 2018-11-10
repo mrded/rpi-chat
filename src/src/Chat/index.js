@@ -1,5 +1,4 @@
 import React from "react";
-import io from "socket.io-client";
 
 import Message from './Message';
 import Input from './Input';
@@ -14,25 +13,19 @@ class Chat extends React.Component {
       messages: []
     };
 
-    this.socket = io();
     this.db = new PouchDB('http://localhost:5984/rpi-chat');
 
-    this.socket.on('RECEIVE_MESSAGE', (data) => this.addMessage(data));
+    this.db.changes({ since: 'now', live: true, include_docs: true })
+      .on('change', change => this.addMessage(change.doc))
   }
 
   async componentDidMount() {
-    const messages = this.state.messages.slice(0);
-
     const result = await this.db.allDocs({
       include_docs: true,
       attachments: true
     });
 
-    for (let row of result.rows) {
-      messages.push(row.doc);
-    }
-
-    this.setState({ messages });
+    result.rows.map(row => this.addMessage(row.doc));
   }
 
   addMessage(data) {
@@ -45,10 +38,10 @@ class Chat extends React.Component {
     return (
       <div className="card">
         <div className="card-body">
-          { this.state.messages.map((message, id) => {
+          { this.state.messages.map(message => {
             return (
               <Message
-                key={ id }
+                key={ message._id }
                 date={ message.date }
                 text={ message.text }
               />
@@ -57,7 +50,7 @@ class Chat extends React.Component {
         </div>
 
         <div className="card-footer text-muted">
-          <Input socket={ this.socket } db={ this.db } />
+          <Input db={ this.db } />
         </div>
       </div>
     );
