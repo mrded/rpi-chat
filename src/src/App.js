@@ -4,7 +4,7 @@ import Chat from "./Chat";
 class App extends Component {
   render() {
     return (
-      <div>
+      <div className="container">
         <Chat/>
       </div>
     );

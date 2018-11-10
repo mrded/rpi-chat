@@ -19,11 +19,21 @@ class Input extends React.Component {
   }
 
   render() {
+    const style = {
+      position: 'absolute',
+      bottom: 0
+    };
+
     return (
-      <form className="input" onSubmit={ e => this.submitMessage(e) }>
-        <input type="text" ref="msg" />
-        <input type="submit" value="Submit" />
-      </form>
+      <div className="container" style={ style }>
+        <form className="input-group" onSubmit={ e => this.submitMessage(e) }>
+          <input type="text" className="form-control" placeholder="Message" ref="msg"/>
+
+          <div className="input-group-append">
+            <input type="submit" className="btn btn-outline-secondary" value="Send"/>
+          </div>
+        </form> 
+      </div>
     );
   }
 }
