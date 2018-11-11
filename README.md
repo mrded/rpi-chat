@@ -8,18 +8,16 @@ Why don't we create one? Perhaps it is not a real internet - but something else.
 ## Requirements
 - Raspberry Pi 3 model B
 - Docker
+- Docker Compose
 
-### Build 
+### Usage
 
-`docker build -t rpi-chat github.com/mrded/rpi-chat`
-
-### Run
-
-`docker run --restart=always --privileged --net=host -d rpi-chat`
+`docker-compose up`
+`docker-compose down`
 
 ## TODOs
 - [X] WiFi hotspot without encryption
 - [X] [Captive portal](https://en.wikipedia.org/wiki/Captive_portal) with custom web page
 - [X] Web chat
 - [ ] Possibility to send images
-- [ ] Add database to save chat history
+- [X] Add database to save chat history
