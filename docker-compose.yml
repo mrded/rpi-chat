@@ -1,5 +1,9 @@
 version: '2'
 services:
+  app:
+    build: .
+    ports:
+      - "80:80"
   couchdb:
     image: matthiasg/rpi-couchdb
     ports:

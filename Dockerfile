@@ -14,12 +14,6 @@ ADD hostapd.conf /etc/hostapd/hostapd.conf
 ADD hostapd /etc/default/hostapd
 ADD dnsmasq.conf /etc/dnsmasq.conf
 
-# Install CouchDB and enable CORS 
-RUN apt-get install -y couchdb; \
-      /etc/init.d/couchdb start; \
-      npm install -g add-cors-to-couchdb; \
-      add-cors-to-couchdb 
-
 # Clean up.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
