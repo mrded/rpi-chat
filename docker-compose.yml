@@ -1,7 +1,9 @@
 version: '2'
 services:
-  app:
-    build: .
+  hotspot:
+    build: ./hotspot
+  web:
+    build: ./web
     ports:
       - "80:80"
   couchdb:
