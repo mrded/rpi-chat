@@ -12,6 +12,8 @@ Why don't we create one? Perhaps it is not a real internet - but something else.
 
 ### Usage
 
+`docker-compose build`
+`docker-compose up --build`
 `docker-compose up`
 `docker-compose down`
 
