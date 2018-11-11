@@ -2,6 +2,8 @@ version: '2'
 services:
   hotspot:
     build: ./hotspot
+    privileged: true
+    network_mode: host
   web:
     build: ./web
     ports:
