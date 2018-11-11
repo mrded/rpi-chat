@@ -29,7 +29,7 @@ COPY src /src
 # Build client from development env, and clean up.
 RUN cd /src; \
       NODE_ENV=development npm i; \
-      npm run build; \
+      REACT_APP_COUCH_HOST='http://10.0.0.1:5984' npm run build; \
       rm -rf node_modules
 
 # Install dependencies for production.
@@ -41,6 +41,5 @@ WORKDIR /src
 ADD entrypoint.sh /entrypoint.sh
 
 ENV PORT 80
-ENV REACT_APP_COUCH_HOST 'http://10.0.0.1:5984'
 
 ENTRYPOINT ["/entrypoint.sh"]
