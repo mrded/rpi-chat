@@ -2,13 +2,16 @@ version: '2'
 services:
   hotspot:
     build: ./hotspot
+    restart: always
     privileged: true
     network_mode: host
   web:
     build: ./web
+    restart: always
     ports:
       - "80:80"
   couchdb:
     image: matthiasg/rpi-couchdb
+    restart: always
     ports:
       - "5984:5984"

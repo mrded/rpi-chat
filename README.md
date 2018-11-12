@@ -17,11 +17,6 @@ Why don't we create one? Perhaps it is not a real internet - but something else.
 - `docker-compose up`
 - `docker-compose down`
 
-### Autostart at system start up 
-Add to the cron `crontab -e`:
-
-`@reboot sleep 60 && /usr/bin/docker-compose -f /home/pi/rpi-chat/docker-compose.yml up -d`
-
 ## TODOs
 - [X] WiFi hotspot without encryption
 - [X] [Captive portal](https://en.wikipedia.org/wiki/Captive_portal) with custom web page
