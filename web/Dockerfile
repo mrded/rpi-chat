@@ -7,10 +7,6 @@ COPY . /src
 
 ENV PORT 80
 
-# Enable CORS on CouchDB 
-#@TODO: do it in the couchdb containter.
-RUN  npm install -g add-cors-to-couchdb; add-cors-to-couchdb 
-
 # Build client from development env, and clean up.
 RUN cd /src; \
       NODE_ENV=development npm i; \
