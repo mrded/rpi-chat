@@ -12,6 +12,8 @@ services:
       - "80:80"
   couchdb:
     image: matthiasg/rpi-couchdb
+    volumes:
+      - ./data:/opt/couchdb/data
     restart: always
     ports:
       - "5984:5984"
