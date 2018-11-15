@@ -1,4 +1,4 @@
-FROM arm32v7/node:10
+FROM node:10
 
 MAINTAINER Dmitry Demenchuk "dmitry@demenchuk.me"
 
