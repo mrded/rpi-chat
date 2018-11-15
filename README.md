@@ -6,9 +6,11 @@ You probably noticed that there is no internet connection in some very important
 Why don't we create one? Perhaps it is not a real internet - but something else. The idea is to create WiFi hotspot with a chat and get to know who is around.
 
 ## Requirements
-- Raspberry Pi 3 model B
-- Docker
+- Raspberry Pi with WiFi
+- Docker v17
 - Docker Compose
+
+`armv6` versions of Raspberry Pi don't work with Docker v18, use v17 instead.
 
 ### Usage
 
