@@ -4,17 +4,17 @@
 term_handler() {
   echo "Get SIGTERM"
 
-  /etc/init.d/dnsmasq stop
-  /etc/init.d/hostapd stop
-  /etc/init.d/dbus stop
+  systemctl stop dnsmasq
+  systemctl stop hostapd
+  systemctl stop dbus
   kill -TERM "$child" 2> /dev/null
 }
 
 ifconfig wlan0 10.0.0.1/24
 
-/etc/init.d/dbus start
-/etc/init.d/hostapd start
-/etc/init.d/dnsmasq start
+systemctl start dbus
+systemctl start hostapd
+systemctl start dnsmasq
 
 echo 1 > /proc/sys/net/ipv4/ip_forward
 
