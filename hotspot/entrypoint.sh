@@ -12,6 +12,9 @@ term_handler() {
 
 ifconfig wlan0 10.0.0.1/24
 
+# For some reasons wpa_supplicant need to be off.
+killall wpa_supplicant
+
 systemctl start dbus
 systemctl start hostapd
 systemctl start dnsmasq
