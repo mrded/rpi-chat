@@ -39,7 +39,7 @@ class Chat extends React.Component {
   render() {
     return (
       <div className="card">
-        <div className="card-body">
+        <ul className="list-group list-group-flush">
           { this.state.messages.map(message => {
             return (
               <Message
@@ -49,7 +49,7 @@ class Chat extends React.Component {
               />
             )
           }) }
-        </div>
+        </ul>
 
         <div className="card-footer text-muted">
           <Input db={ this.db } />
