@@ -32,8 +32,6 @@ class Chat extends React.Component {
   }
 
   addMessage(data) {
-    console.log('new message', data);
-
     this.setState({
       messages: [...this.state.messages, data]
     });
