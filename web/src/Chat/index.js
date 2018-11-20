@@ -18,7 +18,7 @@ class Chat extends React.Component {
 
     this.db = new PouchDB(couch_host + '/rpi-chat');
 
-    this.db.changes({ since: 'now', live: true, include_docs: true })
+    this.db.changes({ since: 'now', live: true, include_docs: true, attachments: true })
       .on('change', change => this.addMessage(change.doc))
   }
 
@@ -32,6 +32,8 @@ class Chat extends React.Component {
   }
 
   addMessage(data) {
+    console.log('new message', data);
+
     this.setState({
       messages: [...this.state.messages, data]
     });
