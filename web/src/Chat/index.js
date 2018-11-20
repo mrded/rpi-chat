@@ -46,6 +46,7 @@ class Chat extends React.Component {
                 key={ message._id }
                 date={ message.date }
                 text={ message.text }
+                attachments={ message['_attachments'] || {} }
               />
             )
           }) }
