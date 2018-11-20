@@ -2,6 +2,7 @@ import React from "react";
 
 import Message from './Message';
 import Input from './Input';
+import Attachment from './Attachment';
 
 import PouchDB from 'pouchdb-browser';
 
@@ -51,6 +52,10 @@ class Chat extends React.Component {
             )
           }) }
         </ul>
+
+        <div className="card-body text-muted">
+          <Attachment db={ this.db } />
+        </div>
 
         <div className="card-footer text-muted">
           <Input db={ this.db } />
