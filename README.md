@@ -1,5 +1,7 @@
 # rpi-chat
 
+![IMG_2804](https://user-images.githubusercontent.com/347098/60011424-ac6ff500-9671-11e9-9a2e-8c5273a1d860.PNG)
+
 ## Motivation
 You probably noticed that there is no internet connection in some very important places such as tube's tunnel or any lower ground floor.
 
