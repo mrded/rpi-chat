@@ -21,6 +21,17 @@ Why don't we create one? Perhaps it is not a real internet - but something else.
 - `docker-compose up`
 - `docker-compose down`
 
+### Troubleshooting
+
+If you having following errors:
+
+> fatal: unable to access 'https://github.com/xxx/xxx.git/': Failed to connect to github.com port 443: Connection refused
+
+The problem is probbably with time. 
+
+Try to run `timedatectl`, if time is incorect - update it with `sudo systemctl restart systemd-timesyncd.service`.
+You may not be able to update time while `dnsmasq` is running. Disable it first and run again after updating: `sudo systemctl stop|start dnsmasq`.
+
 ## TODOs
 - [X] WiFi hotspot without encryption
 - [X] [Captive portal](https://en.wikipedia.org/wiki/Captive_portal) with custom web page
