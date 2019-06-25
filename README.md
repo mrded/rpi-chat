@@ -27,10 +27,10 @@ If you having following errors:
 
 > fatal: unable to access 'https://github.com/xxx/xxx.git/': Failed to connect to github.com port 443: Connection refused
 
-The problem is probbably with time. 
+The problem is probably because of `dnsmasq` running. Disable it first and run again after you finished
 
-Try to run `timedatectl`, if time is incorect - update it with `sudo systemctl restart systemd-timesyncd.service`.
-You may not be able to update time while `dnsmasq` is running. Disable it first and run again after updating: `sudo systemctl stop|start dnsmasq`.
+- `sudo systemctl stop dnsmasq`.
+- `sudo systemctl start dnsmasq`.
 
 ## TODOs
 - [X] WiFi hotspot without encryption
