@@ -21,6 +21,25 @@ Why don't we create one? Perhaps it is not a real internet - but something else.
 - `docker-compose up`
 - `docker-compose down`
 
+### Running without a Docker
+
+You can just follow instalation process from 'Dockerfile', and add systemd autoload `/etc/systemd/system/rpi-chat.service`:
+
+```
+[Unit]
+Description=rpi-chat
+After=network.target
+
+[Service]
+Environment=PORT=80
+ExecStart=sh /home/pi/rpi-chat/hotspot/entrypoint.sh
+Type=simple
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+
 ### Troubleshooting
 
 If you having following errors:
