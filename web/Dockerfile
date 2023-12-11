@@ -1,4 +1,4 @@
-FROM node:10
+FROM node:18
 
 MAINTAINER Dmitry Demenchuk "dmitry@demenchuk.me"
 
