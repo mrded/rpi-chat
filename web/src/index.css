@@ -1,0 +1,50 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .container-fluid {
+    padding: 0 !important;
+  }
+  
+  #chat2 {
+    border-radius: 0 !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+  }
+  
+  .card-body {
+    padding: 1rem !important;
+  }
+  
+  .card-footer {
+    padding: 0.75rem !important;
+  }
+}
+
+/* Ensure images don't overflow */
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Better scrolling on mobile */
+.card-body {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent zoom on input focus (iOS) */
+input[type="text"] {
+  font-size: 16px;
+}
