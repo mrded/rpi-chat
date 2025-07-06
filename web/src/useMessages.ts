@@ -4,6 +4,8 @@ type MessageDoc = Doc & {
   text: string;
   author: string;
   date: Date;
+  image?: string;
+  imageType?: string;
 };
 
 export const useMessages = () => {

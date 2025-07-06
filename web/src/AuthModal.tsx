@@ -35,19 +35,19 @@ export function AuthModal({ isOpen, onLogin }: Props) {
             </MDBModalHeader>
             <MDBModalBody>
               <p>
-                You're probably bored to death if you decided to connect to this
-                hotspot.
+                Welcome to RPi Chat! 👋
               </p>
               <p>
                 This is an offline chat where you can connect with other people
-                without internet.
+                without internet. Share messages and photos with others nearby!
               </p>
               <div className="mb-3">
                 <MDBInput
                   value={name}
                   onChange={e => setName(e.target.value)}
                   labelClass="col-form-label"
-                  label="Introduce yourself"
+                  label="Enter your name"
+                  required
                 />
               </div>
             </MDBModalBody>

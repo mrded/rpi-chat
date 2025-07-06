@@ -89,3 +89,6 @@ docker-compose down
 - The app uses PouchDB's live changes feed for real-time message updates
 - Docker multi-stage build optimizes the web container size
 - The hotspot service creates a captive portal redirecting to the chat interface
+- Image sharing is implemented using base64 encoding stored in CouchDB
+- Mobile-optimized UI with responsive design for various screen sizes
+- Images are automatically resized for display and can be removed before sending

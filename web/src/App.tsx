@@ -18,8 +18,8 @@ export default function App() {
 
   const [isAuthOpen, setIsAuthOpen] = useState(!author);
 
-  const handleSubmit = (text: string) => {
-    addMessage({ text, date: new Date(), author });
+  const handleSubmit = (text: string, image?: string, imageType?: string) => {
+    addMessage({ text, date: new Date(), author, image, imageType });
   };
 
   const handleLogin = (name: string) => {
@@ -33,7 +33,7 @@ export default function App() {
       <Header onLogout={() => setIsAuthOpen(true)} />
 
       <AuthModal isOpen={isAuthOpen} onLogin={name => handleLogin(name)} />
-      <MDBCardBody>
+      <MDBCardBody style={{ flex: 1, overflowY: "auto", maxHeight: "calc(100vh - 140px)" }}>
         {messages.map(message =>
           message.author === author ? (
             <MessageMine key={message._id} {...message} />
@@ -43,7 +43,7 @@ export default function App() {
         )}
       </MDBCardBody>
 
-      <Footer onSend={text => handleSubmit(text)} />
+      <Footer onSend={(text, image, imageType) => handleSubmit(text, image, imageType)} />
     </Layout>
   );
 }
