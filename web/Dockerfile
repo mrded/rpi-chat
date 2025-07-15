@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM node:18-slim AS build
+FROM node:22-slim AS build
 
 # Set working directory
 WORKDIR /src
@@ -21,7 +21,7 @@ ENV REACT_APP_COUCH_HOST=http://10.0.0.1:5984
 RUN npm run build
 
 # Stage 2: Production
-FROM node:18-slim
+FROM node:22-slim
 
 # Set working directory
 WORKDIR /src
