@@ -1,21 +1,11 @@
 services:
-  hotspot:
-    build: ./hotspot
-    restart: always
-    privileged: true
-    network_mode: host
-  web:
-    build: ./web
-    restart: always
-    ports:
-      - "80:80"
   couchdb:
-    image: matthiasg/rpi-couchdb
+    image: couchdb:latest
     volumes:
-      - ./data:/opt/couchdb/data
-      - ./couchdb/init.sh:/docker-entrypoint-initdb.d/init.sh
+      - ./couchdb/data:/opt/couchdb/data
+      - ./couchdb/local.ini:/opt/couchdb/etc/local.ini
     environment:
-      - COUCHDB_USER=admin 
+      - COUCHDB_USER=admin
       - COUCHDB_PASSWORD=password
     restart: always
     ports:

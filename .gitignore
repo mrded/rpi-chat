@@ -1,1 +1,7 @@
-/data/**/*.couch
+couchdb/data/
+web/node_modules/
+web/build/
+web/coverage/
+*.log
+.DS_Store
+.env
