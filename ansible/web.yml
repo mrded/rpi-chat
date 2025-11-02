@@ -1,0 +1,109 @@
+---
+- name: Deploy rpi-chat web app
+  hosts: all
+  become: yes
+
+  vars:
+    app_name: rpi-chat
+    app_dir: /opt/{{ app_name }}
+    web_port: 80
+
+  tasks:
+    - name: Build app locally
+      delegate_to: localhost
+      become: no
+      run_once: true
+      shell: npm run build
+      args:
+        chdir: "{{ playbook_dir }}/../web"
+
+    - name: Install Node.js 20 and npm
+      apt:
+        name:
+          - nodejs
+          - npm
+        state: present
+        update_cache: yes
+
+    - name: Create application directory
+      file:
+        path: "{{ app_dir }}"
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: '0755'
+
+    - name: Sync web directory to remote
+      synchronize:
+        src: "{{ playbook_dir }}/../web/"
+        dest: "{{ app_dir }}/"
+        delete: yes
+        rsync_opts:
+          - "--exclude=node_modules"
+          - "--exclude=data"
+          - "--exclude=log.txt"
+          - "--exclude=.react-router"
+          - "--filter=P_data/"
+          - "--filter=P_node_modules/"
+
+    - name: Create data directory
+      file:
+        path: "{{ app_dir }}/data"
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: '0755'
+
+    - name: Check if package.json changed
+      stat:
+        path: "{{ app_dir }}/.package-json-deployed"
+        checksum_algorithm: sha256
+      register: deployed_marker
+
+    - name: Get current package.json checksum
+      stat:
+        path: "{{ app_dir }}/package.json"
+        checksum_algorithm: sha256
+      register: current_package_json
+
+    - name: Install/update production dependencies only when needed
+      become_user: "{{ ansible_user }}"
+      shell: npm install --omit=dev
+      args:
+        chdir: "{{ app_dir }}"
+        executable: /bin/bash
+      when: >
+        not deployed_marker.stat.exists or
+        deployed_marker.stat.checksum != current_package_json.stat.checksum
+
+    - name: Save package.json checksum marker
+      copy:
+        content: "{{ current_package_json.stat.checksum }}"
+        dest: "{{ app_dir }}/.package-json-deployed"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: '0644'
+      when: >
+        not deployed_marker.stat.exists or
+        deployed_marker.stat.checksum != current_package_json.stat.checksum
+
+    - name: Create systemd service file
+      template:
+        src: ./templates/rpi-chat.service.j2
+        dest: /etc/systemd/system/{{ app_name }}.service
+        mode: '0644'
+      notify: restart app
+
+    - name: Enable and start the service
+      systemd:
+        name: "{{ app_name }}"
+        enabled: yes
+        state: started
+        daemon_reload: yes
+
+  handlers:
+    - name: restart app
+      systemd:
+        name: "{{ app_name }}"
+        state: restarted
+        daemon_reload: yes

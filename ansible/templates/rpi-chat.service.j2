@@ -1,0 +1,18 @@
+[Unit]
+Description=RPI Chat Web Application
+After=network.target
+
+[Service]
+Type=simple
+User={{ ansible_user }}
+WorkingDirectory={{ app_dir }}
+Environment="PORT={{ web_port }}"
+Environment="NODE_ENV=production"
+ExecStart=/usr/bin/npm start
+Restart=on-failure
+RestartSec=10
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+
+[Install]
+WantedBy=multi-user.target

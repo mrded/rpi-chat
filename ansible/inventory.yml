@@ -1,0 +1,6 @@
+all:
+  hosts:
+    zero3:
+      ansible_host: zero3.local
+      ansible_user: mrded
+      ansible_python_interpreter: /usr/bin/python3
