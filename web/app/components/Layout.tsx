@@ -13,8 +13,8 @@ export function Layout({ children }: Props) {
         <MDBCol xs="12" md="10" lg="8" xl="6">
           <MDBCard
             id="chat2"
-            className="rounded-0 rounded-md-3"
-            style={{ minHeight: "100vh" }}
+            className="rounded-0 rounded-md-3 d-flex flex-column"
+            style={{ height: "100dvh" }}
           >
             {children}
           </MDBCard>

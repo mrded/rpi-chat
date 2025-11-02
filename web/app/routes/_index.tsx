@@ -45,7 +45,7 @@ export default function Index() {
       <Header onLogout={() => setIsAuthOpen(true)} />
 
       <AuthModal isOpen={isAuthOpen} onLogin={name => handleLogin(name)} />
-      <MDBCardBody>
+      <MDBCardBody style={{ flex: 1, overflowY: "auto" }}>
         {messages.map(message =>
           message.author === author ? (
             <MessageMine key={message._id} {...message} />
