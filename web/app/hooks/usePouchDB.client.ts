@@ -1,64 +1,71 @@
 import { useState, useEffect, useCallback } from "react";
 import PouchDB from "pouchdb-browser";
 
-// export type Doc = PouchDB.Core.ExistingDocument<PouchDB.Core.AllDocsMeta>;
-export type Doc = PouchDB.Core.AllDocsMeta;
+const DB_HOST = `${window.location.protocol}//${window.location.host}/db`;
 
-type ExistingDoc<T extends Doc> = PouchDB.Core.ExistingDocument<T>;
+type ExistingDoc<T> = T & PouchDB.Core.IdMeta & PouchDB.Core.GetMeta;
 
-const host =
-  process.env.REACT_APP_COUCH_HOST || "http://admin:password@localhost:5984";
-
-export const usePouchDB = <T extends Doc>() => {
-  const [db] = useState(new PouchDB(host + "/rpi-chat"));
+export const usePouchDB = <T extends object>(dbName: string) => {
+  const [db, setDb] = useState<PouchDB.Database<T> | null>(null);
   const [docs, setDocs] = useState<ExistingDoc<T>[]>([]);
 
-  // Function to fetch all documents
+  useEffect(() => {
+    const database = new PouchDB<T>(`${DB_HOST}/${dbName}`);
+    setDb(database);
+
+    return () => {
+      database.close();
+    };
+  }, [dbName]);
+
   const fetchDocs = useCallback(async () => {
+    if (!db) return;
+
     try {
       const result = await db.allDocs({
         include_docs: true,
-        attachments: true
+        attachments: true,
       });
-      setDocs(result.rows.map(row => row.doc).filter(doc => doc) as ExistingDoc<
-        T
-      >[]);
+      setDocs(
+        result.rows
+          .map((row) => row.doc)
+          .filter((doc): doc is ExistingDoc<T> => doc !== undefined),
+      );
     } catch (error) {
       console.error("Error fetching documents: ", error);
     }
   }, [db]);
 
-  // Function to add a new document
   const addDoc = useCallback(
     async (doc: T) => {
+      if (!db) return;
+
       try {
         await db.post(doc);
-        fetchDocs(); // Refresh the list of docs
       } catch (error) {
         console.error("Error adding document: ", error);
       }
     },
-    [db, fetchDocs]
+    [db],
   );
 
-  // Subscribe to changes
+  // Initial fetch and subscribe to changes
   useEffect(() => {
+    if (!db) return;
+
+    fetchDocs();
+
     const changes = db
       .changes({
         since: "now",
         live: true,
         include_docs: true,
-        attachments: true
+        attachments: true,
       })
       .on("change", fetchDocs);
 
     return () => changes.cancel();
-  }, [db, fetchDocs]);
-
-  // Fetch documents initially
-  useEffect(() => {
-    fetchDocs();
-  }, [fetchDocs]);
+  }, [db]);
 
   return { docs, addDoc };
 };

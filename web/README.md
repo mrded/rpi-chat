@@ -1,11 +1,21 @@
-## Install
+## Setup
 
-    npm i
+```bash
+npm install
+```
 
-## Run backend 
+## Run
 
-    npm start 
+```bash
+npm start
+```
 
-## Run frontend 
+The React Router app and embedded PouchDB server start on port 5000 (`/db` for the database API).
 
-    npm run frontend 
+## Test
+
+```bash
+npm test
+```
+
+For static checks run `npm run typecheck`. Chat data persists under `./data`.
