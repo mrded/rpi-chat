@@ -1,14 +1,9 @@
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { usePouchDB } from "./usePouchDB.client";
 import { MessageDoc } from "~/types/message";
 
 export const useMessages = () => {
-  const { docs, addDoc, fetchDocs } = usePouchDB<MessageDoc>("rpi-chat");
-
-  // Fetch documents initially
-  useEffect(() => {
-    fetchDocs();
-  }, [fetchDocs]);
+  const { docs, addDoc } = usePouchDB<MessageDoc>("rpi-chat");
 
   // Sort messages by date (oldest first)
   const sortedMessages = useMemo(() => {

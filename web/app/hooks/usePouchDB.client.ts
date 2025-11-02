@@ -29,7 +29,7 @@ export const usePouchDB = <T extends object>(dbName: string) => {
       setDocs(
         result.rows
           .map((row) => row.doc)
-          .filter((doc): doc is ExistingDoc<T> => doc !== undefined)
+          .filter((doc): doc is ExistingDoc<T> => doc !== undefined),
       );
     } catch (error) {
       console.error("Error fetching documents: ", error);
@@ -44,16 +44,16 @@ export const usePouchDB = <T extends object>(dbName: string) => {
         await db.post(doc);
       } catch (error) {
         console.error("Error adding document: ", error);
-      } finally {
-        fetchDocs();
       }
     },
-    [db, fetchDocs]
+    [db],
   );
 
-  // Subscribe to changes
+  // Initial fetch and subscribe to changes
   useEffect(() => {
     if (!db) return;
+
+    fetchDocs();
 
     const changes = db
       .changes({
@@ -65,7 +65,7 @@ export const usePouchDB = <T extends object>(dbName: string) => {
       .on("change", fetchDocs);
 
     return () => changes.cancel();
-  }, [db, fetchDocs]);
+  }, [db]);
 
-  return { docs, addDoc, fetchDocs };
+  return { docs, addDoc };
 };
