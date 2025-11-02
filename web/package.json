@@ -5,7 +5,9 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "react-router build",
+    "start": "NODE_ENV=production node server-prod.js",
     "typecheck": "tsc",
     "test": "jest"
   },

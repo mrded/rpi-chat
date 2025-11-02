@@ -1,0 +1,77 @@
+---
+- name: Configure USB OTG ethernet for Raspberry Pi Zero
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Check if using /boot/firmware structure
+      stat:
+        path: /boot/firmware/config.txt
+      register: firmware_boot
+
+    - name: Enable dwc2 overlay in config.txt
+      lineinfile:
+        path: "{{ '/boot/firmware/config.txt' if firmware_boot.stat.exists else '/boot/config.txt' }}"
+        line: "dtoverlay=dwc2"
+        state: present
+      notify: reboot pi
+
+    - name: Add USB OTG modules to cmdline.txt
+      replace:
+        path: "{{ '/boot/firmware/cmdline.txt' if firmware_boot.stat.exists else '/boot/cmdline.txt' }}"
+        regexp: '^(.*rootwait)(?!.*modules-load)(.*)$'
+        replace: '\1 modules-load=dwc2,g_ether\2'
+      notify: reboot pi
+
+    - name: Install dnsmasq for DHCP
+      apt:
+        name: dnsmasq
+        state: present
+
+    - name: Configure dnsmasq for USB interface
+      copy:
+        dest: /etc/dnsmasq.d/usb-gadget
+        content: |
+          interface=usb0
+          dhcp-range=192.168.4.2,192.168.4.10,12h
+          dhcp-option=3,192.168.4.1
+          dhcp-option=6,192.168.4.1
+      notify: restart dnsmasq
+
+    - name: Configure USB interface with static IP
+      copy:
+        dest: /etc/systemd/network/usb0.network
+        content: |
+          [Match]
+          Name=usb0
+
+          [Network]
+          Address=192.168.4.1/24
+      notify: restart systemd-networkd
+
+    - name: Enable systemd-networkd
+      systemd:
+        name: systemd-networkd
+        enabled: yes
+        state: started
+
+    - name: Enable dnsmasq service
+      systemd:
+        name: dnsmasq
+        enabled: yes
+        state: started
+
+  handlers:
+    - name: reboot pi
+      reboot:
+        reboot_timeout: 300
+
+    - name: restart dnsmasq
+      systemd:
+        name: dnsmasq
+        state: restarted
+
+    - name: restart systemd-networkd
+      systemd:
+        name: systemd-networkd
+        state: restarted

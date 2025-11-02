@@ -16,8 +16,53 @@ The idea is to create a Wi-Fi hotspot with a local chat, allowing people nearby 
 
 - `hotspot/` – WiFi access point and captive portal scripts for Raspberry Pi
 - `web/` – React Router + Express app with an embedded PouchDB server (`/db`) and React UI
+- `ansible/` – Ansible playbooks and configuration for deploying to Raspberry Pi
 
 ## Usage
+
+### Deployment with Ansible
+
+Deploy the web app to your Raspberry Pi (runs on port 80):
+
+```bash
+cd ansible
+ansible-playbook web.yml
+```
+
+Configure USB OTG networking for direct USB connection:
+
+```bash
+cd ansible
+ansible-playbook usb-otg.yml
+```
+
+**Web deployment:**
+- Build the app locally with Node v24+ (where esbuild works)
+- Install Node.js 20 and npm on the Pi (sufficient for production runtime)
+- Deploy the pre-built app to `/opt/rpi-chat/`
+- Install production dependencies (only when package.json changes)
+- Create and start a systemd service on port 80
+
+**USB OTG networking:**
+- Enables USB ethernet gadget mode on Raspberry Pi Zero
+- Pi accessible at `192.168.4.1` via USB connection
+- Includes DHCP server for automatic IP assignment to host computer
+- Connect micro USB cable to Pi's data port, then SSH to `192.168.4.1`
+- No WiFi needed for development/deployment
+- Auto-activates on boot
+
+**Deployment speed:**
+- First deployment: ~3-4 minutes (installs all dependencies)
+- Subsequent deployments: ~10-30 seconds (skips npm install if dependencies unchanged)
+- Chat data persists across deployments in `/opt/rpi-chat/data/`
+
+**Architecture support:**
+- Works on both 32-bit (armhf) and 64-bit (arm64) Raspberry Pi OS
+- Local development/build requires Node.js v24+ (for esbuild/Vite)
+- Production runtime on Pi uses Node.js v20 (serves pre-built static files)
+- Builds are done locally, so no esbuild compatibility issues on the Pi
+
+### Manual setup
 
 1. Provision a Pi with the scripts in `hotspot/` (run `entrypoint.sh` on boot).
 2. From `web/`, install and start the chat stack:

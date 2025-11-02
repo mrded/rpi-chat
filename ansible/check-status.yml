@@ -1,0 +1,31 @@
+---
+- name: Check rpi-chat service status
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Check systemd service status
+      command: systemctl status rpi-chat
+      register: service_status
+      ignore_errors: yes
+
+    - name: Display service status
+      debug:
+        var: service_status.stdout_lines
+
+    - name: Check if port 80 is listening
+      command: ss -tlnp | grep :80
+      register: port_check
+      ignore_errors: yes
+
+    - name: Display port status
+      debug:
+        var: port_check.stdout_lines
+
+    - name: Get last 50 lines of service logs
+      command: journalctl -u rpi-chat -n 50 --no-pager
+      register: service_logs
+
+    - name: Display service logs
+      debug:
+        var: service_logs.stdout_lines
