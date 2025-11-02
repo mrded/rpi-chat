@@ -8,10 +8,14 @@ type Props = {
 
 export function Layout({ children }: Props) {
   return (
-    <MDBContainer fluid className="py-5">
-      <MDBRow className="d-flex justify-content-center">
-        <MDBCol md="10" lg="8" xl="6">
-          <MDBCard id="chat2" style={{ borderRadius: "15px" }}>
+    <MDBContainer fluid className="py-md-5 p-0">
+      <MDBRow className="d-flex justify-content-center g-0">
+        <MDBCol xs="12" md="10" lg="8" xl="6">
+          <MDBCard
+            id="chat2"
+            className="rounded-0 rounded-md-3 d-flex flex-column"
+            style={{ height: "100dvh" }}
+          >
             {children}
           </MDBCard>
         </MDBCol>
