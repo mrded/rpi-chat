@@ -1,59 +1,33 @@
 # rpi-chat
 
+Local WiFi hotspot chat for Raspberry Pi. The hotspot boots a captive portal that serves the local-only messenger.
+
 ![IMG_2804](https://user-images.githubusercontent.com/347098/60011424-ac6ff500-9671-11e9-9a2e-8c5273a1d860.PNG)
 
 ## Motivation
-You probably noticed that there is no internet connection in some very important places such as tube's tunnel or any lower ground floor.
 
-Why don't we create one? Perhaps it is not a real internet - but something else. The idea is to create WiFi hotspot with a chat and get to know who is around.
+You’ve probably noticed that there’s no internet connection in some very important places, such as tube tunnels or lower ground floors.
 
-## Requirements
-- Raspberry Pi with WiFi
-- Docker v17
-- Docker Compose
+So why don’t we create one? Maybe not a real internet - but something else.
 
-`armv6` versions of Raspberry Pi don't work with Docker v18, use v17 instead.
+The idea is to create a Wi-Fi hotspot with a local chat, allowing people nearby to connect and get to know who’s around.
 
-### Usage
+## Components
 
-- `docker-compose build`
-- `docker-compose up --build`
-- `docker-compose up`
-- `docker-compose down`
+- `hotspot/` – WiFi access point and captive portal scripts for Raspberry Pi
+- `web/` – React Router + Express app with an embedded PouchDB server (`/db`) and React UI
 
-### Running without a Docker
+## Usage
 
-You can just follow instalation process from 'Dockerfile', and add systemd autoload `/etc/systemd/system/rpi-chat.service`:
+1. Provision a Pi with the scripts in `hotspot/` (run `entrypoint.sh` on boot).
+2. From `web/`, install and start the chat stack:
+   ```bash
+   npm install
+   npm start
+   ```
+   The app listens on port `5000`; chat history persists in `web/data/`.
 
-```
-[Unit]
-Description=rpi-chat
-After=network.target
+Optional commands:
 
-[Service]
-Environment=PORT=80
-ExecStart=sh /home/pi/rpi-chat/hotspot/entrypoint.sh
-Type=simple
-Restart=on-failure
-
-[Install]
-WantedBy=multi-user.target
-```
-
-### Troubleshooting
-
-If you having following errors:
-
-> fatal: unable to access 'https://github.com/xxx/xxx.git/': Failed to connect to github.com port 443: Connection refused
-
-The problem is probably because of `dnsmasq` running. Disable it first and run again after you finished
-
-- `sudo systemctl stop dnsmasq`.
-- `sudo systemctl start dnsmasq`.
-
-## TODOs
-- [X] WiFi hotspot without encryption
-- [X] [Captive portal](https://en.wikipedia.org/wiki/Captive_portal) with custom web page
-- [X] Web chat
-- [ ] Possibility to send images
-- [X] Add database to save chat history
+- `npm test` – run Jest suite
+- `npm run typecheck` – TypeScript checks

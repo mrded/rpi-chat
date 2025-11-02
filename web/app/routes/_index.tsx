@@ -1,19 +1,29 @@
-import React, { useState } from "react";
-
+import { useState } from "react";
 import { MDBCardBody } from "mdb-react-ui-kit";
 
-import { Message, MessageMine } from "./Message";
-import { Layout } from "./Layout";
-import { Header } from "./Header";
-import { Footer } from "./Footer";
-import { useMessages } from "./useMessages";
-import { AuthModal } from "./AuthModal";
+import { Message, MessageMine } from "~/components/Message";
+import { Layout } from "~/components/Layout";
+import { Header } from "~/components/Header";
+import { Footer } from "~/components/Footer";
+import { useMessages } from "~/hooks/useMessages.client";
+import { AuthModal } from "~/components/AuthModal";
+import type { MetaFunction } from "react-router";
 
-export default function App() {
+export const meta: MetaFunction = () => {
+  return [
+    { title: "RPi Chat" },
+    { name: "description", content: "Offline chat application" },
+  ];
+};
+
+export default function Index() {
   const { messages, addMessage } = useMessages();
 
   const [author, setAuthor] = useState(() => {
-    return localStorage.getItem("author") || "";
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("author") || "";
+    }
+    return "";
   });
 
   const [isAuthOpen, setIsAuthOpen] = useState(!author);
@@ -25,7 +35,9 @@ export default function App() {
   const handleLogin = (name: string) => {
     setIsAuthOpen(false);
     setAuthor(name);
-    localStorage.setItem("author", name);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("author", name);
+    }
   };
 
   return (
